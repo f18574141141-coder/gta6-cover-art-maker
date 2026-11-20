@@ -3,21 +3,83 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Cover Snap</title>
+<title>Vice Cover Studio — GTA-style cover maker</title>
 <link rel="stylesheet" href="./style.css">
 </head>
 <body>
+<header class="topbar">
+  <h1>VICE COVER STUDIO</h1>
+  <p class="tagline">Turn any photo into a multi-panel Vice City poster — offline, in seconds.</p>
+</header>
+
 <main class="app">
-  <section class="controls">
-    <h1>Cover Snap</h1>
-    <p>A photo and a caption, made into a square cover.</p>
-    <label>Photo <input id="photo" type="file" accept="image/*"></label>
-    <label>Caption <input id="caption" type="text" maxlength="40" value="Sunset Heist"></label>
-    <button id="export" type="button">Export PNG 1080 x 1080</button>
-    <p id="status" role="status"></p>
+  <section class="toolbar" aria-label="Cover options">
+    <div class="group">
+      <h2>Layout</h2>
+      <div id="layouts" class="chips"></div>
+    </div>
+    <div class="group">
+      <h2>Colour grade</h2>
+      <div id="grades" class="chips"></div>
+    </div>
+    <div class="group">
+      <h2>Export size</h2>
+      <div id="sizes" class="chips"></div>
+    </div>
+    <div class="group inline">
+      <label class="check"><input id="decor" type="checkbox" checked> Sunset, palms &amp; skyline</label>
+    </div>
   </section>
-  <canvas id="cover" width="1080" height="1080" aria-label="The cover"></canvas>
+
+  <section class="stage">
+    <canvas id="cover" width="1920" height="1080" aria-label="Cover preview — click a panel to select it, drag to move its photo"></canvas>
+    <p class="hint">Click a panel to select it, then drag on it to move the photo. Drop photos anywhere on the page.</p>
+    <p id="status" role="status">Add a photo, pick a layout, export your cover.</p>
+  </section>
+
+  <aside class="side" aria-label="Editor panels">
+    <section>
+      <h2>Photos <span id="count" class="muted">0 / 4 photos</span></h2>
+      <div id="library" class="library"></div>
+      <label class="filebtn">Add photos…
+        <input id="fileInput" type="file" accept="image/*" multiple>
+      </label>
+      <button id="useAll" type="button" class="secondary">Use this photo in all panels</button>
+      <p class="muted">Photos never leave your machine. Two samples are preloaded to try.</p>
+    </section>
+
+    <section>
+      <h2>Selected panel</h2>
+      <p id="panelLabel">Panel 1 of 4</p>
+      <label>Zoom <span id="zoomVal">100%</span>
+        <input id="zoom" type="range" min="100" max="300" step="5" value="100">
+      </label>
+      <button id="resetPanel" type="button" class="secondary">Reset panel fit</button>
+    </section>
+
+    <section>
+      <h2>Caption</h2>
+      <label>Title
+        <input id="title" type="text" maxlength="48" value="VICE CITY NIGHTS">
+      </label>
+      <label>Subtitle
+        <input id="subtitle" type="text" maxlength="60" value="Sunset heist · Ocean Drive">
+      </label>
+      <div class="radios">
+        <label><input id="capBottom" type="radio" name="cappos" checked> Caption at bottom</label>
+        <label><input id="capTop" type="radio" name="cappos"> Caption at top</label>
+      </div>
+    </section>
+
+    <section>
+      <h2>Export</h2>
+      <button id="exportBtn" type="button" class="primary">Export PNG</button>
+      <p class="muted">Saves vice-cover-&lt;width&gt;x&lt;height&gt;.png at the size picked above.</p>
+    </section>
+  </aside>
 </main>
+
+<footer>Photos never leave your machine. Original art — no Rockstar assets.</footer>
 <script type="module" src="./src/main.js"></script>
 </body>
 </html>
